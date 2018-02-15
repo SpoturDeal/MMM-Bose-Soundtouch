@@ -1,0 +1,27 @@
+.bose ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.bose ul .name,
+.bose ul .art {
+  display: inline-block;
+  vertical-align: middle;
+}
+.bose ul .name {
+  padding: 0 .25em;
+}
+.bose ul .art img {
+  height: 100px;
+}
+img { 
+  height:100px; 
+}
+.bose ul .name {
+  font-size: 50%;
+  padding: .25em .5em;
+}
+.bose ul.flip {
+  direction: rtl;
+}
+.small { padding:0px 10px;}

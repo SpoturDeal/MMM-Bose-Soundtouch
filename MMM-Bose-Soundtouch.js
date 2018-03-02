@@ -1,13 +1,13 @@
 /* Magic Mirror
- * Module: MagicMirror-Bose-Module
+ * Module: MagicMirror-Bose-Soundtouch
  *
  * By SpoturDeal https://github.com/SpoturDeal
  * MIT Licensed.
  */
  Module.register('MMM-Bose-Soundtouch', {
 	defaults: {
-        updateInterval: 5,                          // every 45 seconds
-        apiBase: '192.168.178.190',                 // the IPaddress of you Bose Soundtouch in your home network
+        updateInterval: 5,                          // every 5 seconds
+        apiBase: '192.168.xxx.xxx',                 // the IPaddress of the Bose Soundtouch in your home network
         apiPort: 8090,                              // Bose uses 8090
         apiEndpoint: 'now_playing',                 // access to api
 	},
@@ -34,6 +34,10 @@
         var showMusic = false;
         if (music.source == "SPOTIFY"){
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
+            showMusic = true;
+            sAlbum=music.album;
+        } else if (music.source == "AMAZON"){
+            sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
         } else if (music.source == "INTERNET_RADIO"){

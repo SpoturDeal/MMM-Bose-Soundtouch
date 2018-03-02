@@ -40,6 +40,10 @@
             sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
+        } else if (music.source == "DEEZER" || music.source == "ITUNES"){
+            sTitle = '<i class="fa fa-music" style="color:#FFFFFF;"></i> ' + music.ContentItem.itemName;
+            showMusic = true;
+            sAlbum=music.album;    
         } else if (music.source == "INTERNET_RADIO"){
             sTitle = "Internet radio ";
             showMusic = true;

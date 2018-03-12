@@ -61,7 +61,7 @@
         text +='<table>';
         text +='<tr><td class="small">' + (music.track?this.maxSize(music.track,30):'') + '</td><td class="small"><i class="fas fa-music"></i><td></td><td class="small" rowspan="3">' + (sArt?htmlImage:'') + '</td></tr>'
 
-        text += (music.artist?'<tr><td class="small">' + this.maxSize(music.artist,30) + '</td><td class="small"><i class="fas fa-user-o"></i></td></tr>':'');
+        text += (music.artist?'<tr><td class="small">' + this.maxSize(music.artist,30) + '</td><td class="small"><i class="fas fa-user"></i></td></tr>':'');
         text += (sAlbum?'<tr><td class="small">' + this.maxSize(sAlbum,lenAlbum) + '</td><td class="small"><i class="fas fa-file-audio-o"></i></td></tr>':'');
         text += '</table></div>';
         // if no source found  show nothing

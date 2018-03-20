@@ -1,6 +1,6 @@
 # MMM-Bose-Soundtouch
 
-This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module show the music the Soundtouch is playing
+This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module shows the music your Bose Soundtouch is playing
 
 
 ## Installation
@@ -37,11 +37,11 @@ Here is an example of an entry in `config.js`
 The MIT License (MIT)
 =====================
 
-Copyright © 2018 SpoturDeal - Carl 
+Copyright ¬© 2018 SpoturDeal - Carl 
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
-files (the ìSoftwareî), to deal in the Software without
+files (the ‚ÄúSoftware‚Äù), to deal in the Software without
 restriction, including without limitation the rights to use,
 copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the
@@ -51,6 +51,6 @@ conditions:
 The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-**The software is provided ìas isî, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability,
+**The software is provided ‚Äúas is‚Äù, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability,
 fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability,
 whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.**

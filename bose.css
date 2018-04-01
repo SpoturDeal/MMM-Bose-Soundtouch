@@ -14,8 +14,8 @@
 .bose ul .art img {
   height: 100px;
 }
-img { 
-  height:100px; 
+.bose img { 
+  height:100px;
 }
 .bose ul .name {
   font-size: 50%;
@@ -24,4 +24,4 @@ img {
 .bose ul.flip {
   direction: rtl;
 }
-.small { padding:0px 10px;}
+.small { padding:0px 4px;}

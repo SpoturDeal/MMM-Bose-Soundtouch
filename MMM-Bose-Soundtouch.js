@@ -40,7 +40,7 @@
             sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
-        } else if (music.source == "DEEZER" || music.source == "ITUNES" || music.source == "TUNEIN"){
+        } else if (music.source == "DEEZER" || music.source == "ITUNES" || music.source == "TUNEIN"  || music.source == "PRODUCT"){
             sTitle = '<i class="fa fa-music" style="color:#FFFFFF;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;

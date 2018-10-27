@@ -1,6 +1,6 @@
 /* Magic Mirror
  * Module: MagicMirror-Bose-Soundtouch
- *
+ * 27 October 2018 
  * By SpoturDeal https://github.com/SpoturDeal
  * MIT Licensed.
  */
@@ -36,7 +36,7 @@
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
-        } else if (music.source == "AMAZON"){
+        } else if (music.source == "AMAZON" || music.source == "ALEXA"){
             sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;

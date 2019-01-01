@@ -1,6 +1,6 @@
 /* Magic Mirror
  * Module: MagicMirror-Bose-Soundtouch
- * 27 October 2018 
+ *
  * By SpoturDeal https://github.com/SpoturDeal
  * MIT Licensed.
  */
@@ -36,7 +36,7 @@
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
-        } else if (music.source == "AMAZON" || music.source == "ALEXA"){
+        } else if (music.source == "AMAZON"){
             sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
@@ -50,6 +50,10 @@
             sAlbum = music.stationName;
         } else if (music.source == "STANDBY"){
             sTitle ='<i class="fa fa-spotify"></i> stand by';
+        } else if (music.source == "STORED_MUSIC"){
+            sTitle = '<i class="fa fa-music"></i> Soundtouch ';
+            showMusic = true;
+            sAlbum = false;
         } else {
             sTitle = "Soundtouch - Your help is needed";
             sAlbum = "Please send me a message with the contents of<br>http:/" + this.config.apiBase + ':8090/now_playing<br>I can add the unknown service.';

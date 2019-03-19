@@ -14,14 +14,15 @@ module.exports = NodeHelper.create({
   //Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, url) {
     if (notification === 'BOSE_READ') {
-      //console.log(notification);
+//      console.log(notification, url);
       var self = this;
       request(url, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-          //console.log(body);
-          self.sendSocketNotification('BOSE_DATA', body);
-        }
+//		  console.log(body);
+		  self.sendSocketNotification('BOSE_DATA', body);
+		}
       });
     }
   }
+  
 });

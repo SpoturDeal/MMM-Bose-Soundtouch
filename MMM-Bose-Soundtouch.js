@@ -4,26 +4,34 @@
  * By SpoturDeal https://github.com/SpoturDeal
  * MIT Licensed.
  */
+ 
  Module.register('MMM-Bose-Soundtouch', {
 	defaults: {
-        updateInterval: 5,                          // every 5 seconds
+        updateInterval: 10,                          // every 10 seconds
         apiBase: '192.168.xxx.xxx',                 // the IPaddress of the Bose Soundtouch in your home network
         apiPort: 8090,                              // Bose uses 8090
         apiEndpoint: 'now_playing',                 // access to api
 	},
 	start: function() {
 		Log.info('Starting module: ' + this.name);
+		if (!this.lastReceive) {this.lastReceive = moment([2018,3,1]);}
+		if (!Array.isArray(this.config.apiBase)) { this.config.apiBase = [this.config.apiBase] ;}
 		this.update();
 		// refresh every x seconden
 		setInterval(
 			this.update.bind(this),
 			this.config.updateInterval * 1000);
+
 	},
+	
 	update: function(){
-		this.sendSocketNotification(
-			'BOSE_READ',
-			'http://' + this.config.apiBase + ":" + this.config.apiPort + "/" + this.config.apiEndpoint);
+		for (var base of this.config.apiBase) {
+			this.sendSocketNotification(
+				'BOSE_READ',
+				'http://' + base + ":" + this.config.apiPort + "/" + this.config.apiEndpoint);
+		}
 	},
+	
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
@@ -87,7 +95,8 @@
 		return [
 			'String.format.js',
             'xml2json.js',
-			'//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js'
+//			'//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js'
+			"http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"
 		];
 	},
 	getStyles: function() {
@@ -113,8 +122,14 @@
 	},
     socketNotificationReceived: function(notification, payload) {
       if (notification === 'BOSE_DATA') {
-          console.log('received BOSE_DATA');
-		  this.render(payload);
+//		  console.log('received BOSE_DATA', moment().diff(this.lastReceive), this.lastReceive.format(), payload.indexOf('source="STANDBY"') );
+		 if ( (payload.indexOf('source="STANDBY"') >= 0) && (moment().diff(this.lastReceive) <= 120000) ) {
+		   return;} // drop all standby's for 2 minutes. 
+		  if (moment().diff(this.lastReceive) > 1000) {
+			  this.lastReceive = moment() ;
+//			  console.log('render BOSE DATA');
+			  this.render(payload);
+		  }
       }
     }
 });

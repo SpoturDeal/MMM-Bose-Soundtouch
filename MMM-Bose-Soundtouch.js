@@ -40,6 +40,8 @@
         var sTitle='';
         var lenAlbum=30;
         var showMusic = false;
+	var sAlbum ;
+	
         if (music.source == "SPOTIFY"){
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
             showMusic = true;

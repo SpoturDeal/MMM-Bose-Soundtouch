@@ -14,7 +14,7 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 |Option|Description|
 |---|---|
 |`updateInterval`|How fast do you like updates.<br>**Type:** `Integer`<br>**Default:** <i>5</i>| seconds 
-|`apiBase`|The IP Address of your Bose Soundtouch.<br>**Type:** `string`<br>**Default:** <i>192.168.xxx.xxx</i>|
+|`apiBase`|The IP Addresses of your Bose Soundtouches.<br>**Type:** `array of strings`<br>**Default:** <i>[192.168.xxx.xxx]</i>|
 
 
 Here is an example of an entry in `config.js`
@@ -24,7 +24,7 @@ Here is an example of an entry in `config.js`
 	position: "top_right",   // see mirror setting for options
 	config: {          
 		updateInterval: 5, // every 5 seconds
-		apiBase: '192.168.xxx.xxx',
+		apiBase: ['192.168.xxx.xxx', '192.168.xxx.yyy'],
 	}
 }
 ```

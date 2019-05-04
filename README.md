@@ -7,6 +7,8 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/spoturdeal/MMM-Bose-Soundtouch.git`.
 2. Add the module inside `config.js` placing it where you prefer ;)
 
+## Update
+2019/05/03 - Added option to hide the Image requested by EarthwormJim55
 
 ## Config
 
@@ -15,6 +17,7 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 |---|---|
 |`updateInterval`|How fast do you like updates.<br>**Type:** `Integer`<br>**Default:** <i>5</i>| seconds 
 |`apiBase`|The IP Addresses of your Bose Soundtouches.<br>**Type:** `array of strings`<br>**Default:** <i>[192.168.xxx.xxx]</i>|
+|`hideImage`|If true there will be no image of the song.<br>**Type:** `Boolean`<br>**Default:** <i>false</i>|
 
 
 Here is an example of an entry in `config.js`
@@ -37,7 +40,7 @@ Here is an example of an entry in `config.js`
 The MIT License (MIT)
 =====================
 
-Copyright © 2018 SpoturDeal - Carl 
+Copyright © 2018/2019 SpoturDeal - Carl 
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

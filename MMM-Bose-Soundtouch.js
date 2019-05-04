@@ -11,6 +11,7 @@
         apiBase: '192.168.xxx.xxx',                 // the IPaddress of the Bose Soundtouch in your home network
         apiPort: 8090,                              // Bose uses 8090
         apiEndpoint: 'now_playing',                 // access to api
+        hideImage: false,
 	},
 	start: function() {
 		Log.info('Starting module: ' + this.name);
@@ -35,6 +36,11 @@
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
+        if (this.config.hideImage === false ){
+           var sArt = $(data).find('art').text().trim(); 
+        } else {
+           var sArt = false; 
+        }
 		var sArt = $(data).find('art').text().trim();
         var htmlImage='<img src="' + sArt + '"/>';
         var sTitle='';

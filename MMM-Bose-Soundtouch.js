@@ -28,7 +28,7 @@
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
-        if (this.config.hideImage === false ){
+        if (this.config.hideImage !== false ){
            var sArt = $(data).find('art').text().trim(); 
         } else {
            var sArt = false; 

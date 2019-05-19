@@ -28,13 +28,15 @@
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
-        if (this.config.hideImage !== false ){
+        if (this.config.hideImage === false ){
            var sArt = $(data).find('art').text().trim(); 
+	   var htmlImage='<img src="' + sArt + '"/>'; 	
         } else {
            var sArt = false; 
+	   var htmlImage='';
         }
-		var sArt = $(data).find('art').text().trim();
-        var htmlImage='<img src="' + sArt + '"/>';
+	//var sArt = $(data).find('art').text().trim();
+        
         var sTitle='';
         var lenAlbum=30;
         var showMusic = false;

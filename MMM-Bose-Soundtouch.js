@@ -38,6 +38,7 @@
 	//var sArt = $(data).find('art').text().trim();
         
         var sTitle='';
+	var sAlbum = '';
         var lenAlbum=30;
         var showMusic = false;
         if (music.source == "SPOTIFY"){

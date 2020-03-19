@@ -67,11 +67,11 @@
               sTitle = "AUX Input ";
               sAlbum = "Playing from aux input.";
               showMusic = true;
-              
+
           } else {
             sTitle = "Soundtouch - Your help is needed";
             sAlbum = "Please send me a message with the contents of<br>http:/" + this.config.apiBase + ':8090/now_playing<br>I can add the unknown service.';
-            showMusic = true;
+            showMusic = false;
             lenAlbum=150;
         }
         var text = '<div>';

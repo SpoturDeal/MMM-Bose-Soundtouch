@@ -65,7 +65,7 @@
             sAlbum = false;
         } else if (music.source == "AUX"){
             sTitle = 'AUX Input';
-            sAlbum = 'Soundtouch Playing from aux input'';
+            sAlbum = 'Soundtouch Playing from aux input';
             showMusic = true;
             sAlbum = false;
         } else {

@@ -29,14 +29,14 @@
 	    var json=xml2json(data);
         var music = json.nowPlaying;
         if (this.config.hideImage === false ){
-           var sArt = $(data).find('art').text().trim(); 
-	   var htmlImage='<img src="' + sArt + '"/>'; 	
+           var sArt = $(data).find('art').text().trim();
+	   var htmlImage='<img src="' + sArt + '"/>';
         } else {
-           var sArt = false; 
+           var sArt = false;
 	   var htmlImage='';
         }
 	//var sArt = $(data).find('art').text().trim();
-        
+
         var sTitle='';
 	var sAlbum = '';
         var lenAlbum=30;
@@ -61,6 +61,11 @@
             sTitle ='<i class="fa fa-spotify"></i> stand by';
         } else if (music.source == "STORED_MUSIC"){
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
+            showMusic = true;
+            sAlbum = false;
+        } else if (music.source == "AUX"){
+            sTitle = 'AUX Input';
+            sAlbum = 'Soundtouch Playing from aux input'';
             showMusic = true;
             sAlbum = false;
         } else {

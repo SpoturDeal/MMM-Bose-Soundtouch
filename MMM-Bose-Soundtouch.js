@@ -63,12 +63,12 @@
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
             showMusic = true;
             sAlbum = false;
-        } else if (music.source == "AUX"){
-            sTitle = 'AUX Input';
-            sAlbum = 'Soundtouch Playing from aux input';
-            showMusic = true;
-            sAlbum = false;
-        } else {
+          } else if (music.source == "AUX"){
+              sTitle = "AUX Input ";
+              sAlbum = "Playing from aux input.";
+              showMusic = true;
+              
+          } else {
             sTitle = "Soundtouch - Your help is needed";
             sAlbum = "Please send me a message with the contents of<br>http:/" + this.config.apiBase + ':8090/now_playing<br>I can add the unknown service.';
             showMusic = true;

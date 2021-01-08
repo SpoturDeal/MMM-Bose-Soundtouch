@@ -13,9 +13,10 @@
         apiEndpoint: 'now_playing',                 // access to api
         hideImage: false,
 	},
+	
+	
 	start: function() {
 		Log.info('Starting module: ' + this.name);
-		if (!this.lastReceive) {this.lastReceive = moment([2018,3,1]);}
 		if (!Array.isArray(this.config.apiBase)) { this.config.apiBase = [this.config.apiBase] ;}
 		this.update();
 		// refresh every x seconden
@@ -64,7 +65,7 @@
             sTitle = "Internet radio ";
             showMusic = true;
             sAlbum = music.stationName;
-        } else if (music.source == "STANDBY"){
+        } else if (music.source == "STANDBY" || music.source == "INVALID_SOURCE"){
             sTitle ='<i class="fa fa-spotify"></i> stand by';
         } else if (music.source == "STORED_MUSIC"){
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
@@ -103,6 +104,7 @@
 		return [
 			'String.format.js',
             'xml2json.js',
+			'moment.js',
 //			'//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js'
 			"http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"
 		];
@@ -129,10 +131,14 @@
 		return $('<div class="bose">'+content+'</div>')[0];
 	},
     socketNotificationReceived: function(notification, payload) {
+	  if (!this.lastReceive) {this.lastReceive = moment([2018,3,1]);
+//	  console.log('SET OLD LAST RECEIVE MOMENT. Should happen only once');
+      }
       if (notification === 'BOSE_DATA') {
 //		  console.log('received BOSE_DATA', moment().diff(this.lastReceive), this.lastReceive.format(), payload.indexOf('source="STANDBY"') );
-		 if ( (payload.indexOf('source="STANDBY"') >= 0) && (moment().diff(this.lastReceive) <= 120000) ) {
-		   return;} // drop all standby's for 2 minutes. 
+		 if ( ((payload.indexOf('source="STANDBY"') >= 0) ||
+       		   (payload.indexOf('source="INVALID_SOURCE"') >= 0)) && (moment().diff(this.lastReceive) <= 60000) ) {
+		   return;} // drop all standby's and invalid sources for 1 minute. 
 		  if (moment().diff(this.lastReceive) > 1000) {
 			  this.lastReceive = moment() ;
 //			  console.log('render BOSE DATA');

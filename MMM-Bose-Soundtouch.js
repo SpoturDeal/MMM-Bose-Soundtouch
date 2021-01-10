@@ -47,7 +47,7 @@
         var sTitle='';
         var lenAlbum=30;
         var showMusic = false;
-	var sAlbum ;
+		var sAlbum ;
 	
         if (music.source == "SPOTIFY"){
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
@@ -65,6 +65,12 @@
             sTitle = "Internet radio ";
             showMusic = true;
             sAlbum = music.stationName;
+		} else if (music.source == "BLUETOOTH"){
+            sTitle = music.ContentItem.itemName;
+            showMusic = true;
+            sAlbum = music.album;
+			sArt = true ;
+			htmlImage='<img src="https://cdn.osxdaily.com/wp-content/uploads/2013/12/bluetooth-icon.png" width="100" height="100" />' ;
         } else if (music.source == "STANDBY" || music.source == "INVALID_SOURCE"){
             sTitle ='<i class="fa fa-spotify"></i> stand by';
         } else if (music.source == "STORED_MUSIC"){
@@ -147,3 +153,4 @@
       }
     }
 });
+

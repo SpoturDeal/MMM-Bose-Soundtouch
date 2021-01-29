@@ -38,13 +38,16 @@
 	    var json=xml2json(data);
         var music = json.nowPlaying;
         if (this.config.hideImage === false ){
-           var sArt = $(data).find('art').text().trim(); 
+           var sArt = $(data).find('art').text().trim();
+	   var htmlImage='<img src="' + sArt + '"/>';
         } else {
-           var sArt = false; 
+           var sArt = false;
+	   var htmlImage='';
         }
-		var sArt = $(data).find('art').text().trim();
-        var htmlImage='<img src="' + sArt + '"/>';
+	//var sArt = $(data).find('art').text().trim();
+
         var sTitle='';
+	var sAlbum = '';
         var lenAlbum=30;
         var showMusic = false;
 		var sAlbum ;
@@ -57,7 +60,7 @@
             sTitle = '<i class="fa fa-amazon" style="color:#232F3E;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
-        } else if (music.source == "DEEZER" || music.source == "ITUNES" || music.source == "TUNEIN"  || music.source == "PRODUCT"){
+        } else if (music.source == "DEEZER" || music.source == "ITUNES" || music.source == "TUNEIN"  || music.source == "PRODUCT" || music.source == "AIRPLAY"){
             sTitle = '<i class="fa fa-music" style="color:#FFFFFF;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
             sAlbum=music.album;
@@ -77,10 +80,15 @@
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
             showMusic = true;
             sAlbum = false;
-        } else {
+          } else if (music.source == "AUX"){
+              sTitle = "AUX Input ";
+              sAlbum = "Playing from aux input.";
+              showMusic = true;
+
+          } else {
             sTitle = "Soundtouch - Your help is needed";
             sAlbum = "Please send me a message with the contents of<br>http:/" + this.config.apiBase + ':8090/now_playing<br>I can add the unknown service.';
-            showMusic = true;
+            showMusic = false;
             lenAlbum=150;
         }
         var text = '<div>';

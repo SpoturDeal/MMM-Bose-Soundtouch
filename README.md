@@ -4,12 +4,12 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/SpoturDeal/MMM-Bose-Soundtouch.git`.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/martinkooij/MMM-Bose-Soundtouch.git`.
 2. Add the module inside `config.js` placing it where you prefer ;)
 
 ## Update
-2019/05/03 - Added option to hide the Image requested by EarthwormJim55
-2020/02/10 - Added option to add a list of Bose addresses in case of multiple Soundtouches
+1. 2019/05/03 - Added option to hide the Image requested by EarthwormJim55
+2. 2020/02/10 - Added option to add a list of Bose addresses in case of multiple Soundtouches
 
 ## Config
 

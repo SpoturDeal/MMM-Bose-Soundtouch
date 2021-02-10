@@ -1,37 +1,25 @@
 /* Magic Mirror
  * Module: MagicMirror-Bose-Soundtouch
  *
- * By SpoturDeal https://github.com/SpoturDeal
+ * By SpoturDeal https://github.com/SpoturDeal 
+ * updated by MartinKooij 2021 (list of bose speakers)
  * MIT Licensed.
  */
  
  Module.register('MMM-Bose-Soundtouch', {
 	defaults: {
-        updateInterval: 10,                          // every 10 seconds
-        apiBase: '192.168.xxx.xxx',                 // the IPaddress of the Bose Soundtouch in your home network
-        apiPort: 8090,                              // Bose uses 8090
-        apiEndpoint: 'now_playing',                 // access to api
+        updateInterval: 10,                          // every 5 seconds
+        apiBase: '192.168.xxx.xxx',                 // the IPaddress(es) of the Bose Soundtouch in your home network
         hideImage: false,
 	},
-	
-	
 	start: function() {
 		Log.info('Starting module: ' + this.name);
-		if (!Array.isArray(this.config.apiBase)) { this.config.apiBase = [this.config.apiBase] ;}
-		this.update();
-		// refresh every x seconden
-		setInterval(
-			this.update.bind(this),
-			this.config.updateInterval * 1000);
-
-	},
-	
-	update: function(){
-		for (var base of this.config.apiBase) {
-			this.sendSocketNotification(
-				'BOSE_READ',
-				'http://' + base + ":" + this.config.apiPort + "/" + this.config.apiEndpoint);
-		}
+		this.sendSocketNotification('BOSE_READ', 
+			{
+			boselist: this.config.apiBase, 
+			interval: this.config.updateInterval * 1000
+			} 
+		);
 	},
 	
 	render: function(data){
@@ -47,11 +35,9 @@
 	//var sArt = $(data).find('art').text().trim();
 
         var sTitle='';
-	var sAlbum = '';
+		var sAlbum = '';
         var lenAlbum=30;
         var showMusic = false;
-		var sAlbum ;
-	
         if (music.source == "SPOTIFY"){
             sTitle = '<i class="fa fa-spotify" style="color:#1ED760;"></i> ' + music.ContentItem.itemName;
             showMusic = true;
@@ -74,7 +60,8 @@
             sAlbum = music.album;
 			sArt = true ;
 			htmlImage='<img src="https://cdn.osxdaily.com/wp-content/uploads/2013/12/bluetooth-icon.png" width="100" height="100" />' ;
-        } else if (music.source == "STANDBY" || music.source == "INVALID_SOURCE"){
+        } 
+		else if (music.source == "STANDBY"|| music.source == "INVALID_SOURCE"){
             sTitle ='<i class="fa fa-spotify"></i> stand by';
         } else if (music.source == "STORED_MUSIC"){
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
@@ -118,14 +105,11 @@
 		return [
 			'String.format.js',
             'xml2json.js',
-			'moment.js',
-//			'//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js'
-			"http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"
+			'//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.js'
 		];
 	},
 	getStyles: function() {
-		return ['bose.css',
-            'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'];
+		return ['bose.css'];
 	},
     maxSize: function(sTr,len){
        if(sTr.length > len) {
@@ -145,20 +129,9 @@
 		return $('<div class="bose">'+content+'</div>')[0];
 	},
     socketNotificationReceived: function(notification, payload) {
-	  if (!this.lastReceive) {this.lastReceive = moment([2018,3,1]);
-//	  console.log('SET OLD LAST RECEIVE MOMENT. Should happen only once');
-      }
       if (notification === 'BOSE_DATA') {
-//		  console.log('received BOSE_DATA', moment().diff(this.lastReceive), this.lastReceive.format(), payload.indexOf('source="STANDBY"') );
-		 if ( ((payload.indexOf('source="STANDBY"') >= 0) ||
-       		   (payload.indexOf('source="INVALID_SOURCE"') >= 0)) && (moment().diff(this.lastReceive) <= 60000) ) {
-		   return;} // drop all standby's and invalid sources for 1 minute. 
-		  if (moment().diff(this.lastReceive) > 1000) {
-			  this.lastReceive = moment() ;
-//			  console.log('render BOSE DATA');
-			  this.render(payload);
-		  }
+          console.log('received BOSE_DATA');
+		  this.render(payload);
       }
     }
 });
-

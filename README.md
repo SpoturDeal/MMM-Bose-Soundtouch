@@ -4,11 +4,12 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/martinkooij/MMM-Bose-Soundtouch.git`.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/SpoturDeal/MMM-Bose-Soundtouch.git`.
 2. Add the module inside `config.js` placing it where you prefer ;)
 
 ## Update
 2019/05/03 - Added option to hide the Image requested by EarthwormJim55
+2020/02/10 - Added option to add a list of Bose addresses in case of multiple Soundtouches
 
 ## Config
 
@@ -16,7 +17,7 @@ This <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module sh
 |Option|Description|
 |---|---|
 |`updateInterval`|How fast do you like updates.<br>**Type:** `Integer`<br>**Default:** <i>5</i>| seconds 
-|`apiBase`|The IP Addresses of your Bose Soundtouches.<br>**Type:** `array of strings`<br>**Default:** <i>[192.168.xxx.xxx]</i>|
+|`apiBase`|The IP Address(es) of your Bose Soundtouches.<br>**Type:** `(array of) string(s)`<br>**Default:** <i>192.168.xxx.xxx</i>|
 |`hideImage`|If true there will be no image of the song.<br>**Type:** `Boolean`<br>**Default:** <i>false</i>|
 
 

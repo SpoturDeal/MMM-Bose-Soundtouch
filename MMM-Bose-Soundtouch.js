@@ -1,30 +1,27 @@
 /* Magic Mirror
  * Module: MagicMirror-Bose-Soundtouch
  *
- * By SpoturDeal https://github.com/SpoturDeal
+ * By SpoturDeal https://github.com/SpoturDeal 
+ * updated by MartinKooij 2021 (list of bose speakers)
  * MIT Licensed.
  */
+ 
  Module.register('MMM-Bose-Soundtouch', {
 	defaults: {
-        updateInterval: 5,                          // every 5 seconds
-        apiBase: '192.168.xxx.xxx',                 // the IPaddress of the Bose Soundtouch in your home network
-        apiPort: 8090,                              // Bose uses 8090
-        apiEndpoint: 'now_playing',                 // access to api
+        updateInterval: 10,                          // every 5 seconds
+        apiBase: '192.168.xxx.xxx',                 // the IPaddress(es) of the Bose Soundtouch in your home network
         hideImage: false,
 	},
 	start: function() {
 		Log.info('Starting module: ' + this.name);
-		this.update();
-		// refresh every x seconden
-		setInterval(
-			this.update.bind(this),
-			this.config.updateInterval * 1000);
+		this.sendSocketNotification('BOSE_READ', 
+			{
+			boselist: this.config.apiBase, 
+			interval: this.config.updateInterval * 1000
+			} 
+		);
 	},
-	update: function(){
-		this.sendSocketNotification(
-			'BOSE_READ',
-			'http://' + this.config.apiBase + ":" + this.config.apiPort + "/" + this.config.apiEndpoint);
-	},
+	
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
@@ -38,7 +35,7 @@
 	//var sArt = $(data).find('art').text().trim();
 
         var sTitle='';
-	var sAlbum = '';
+		var sAlbum = '';
         var lenAlbum=30;
         var showMusic = false;
         if (music.source == "SPOTIFY"){
@@ -57,7 +54,14 @@
             sTitle = "Internet radio ";
             showMusic = true;
             sAlbum = music.stationName;
-        } else if (music.source == "STANDBY"){
+		} else if (music.source == "BLUETOOTH"){
+            sTitle = music.ContentItem.itemName;
+            showMusic = true;
+            sAlbum = music.album;
+			sArt = true ;
+			htmlImage='<img src="https://cdn.osxdaily.com/wp-content/uploads/2013/12/bluetooth-icon.png" width="100" height="100" />' ;
+        } 
+		else if (music.source == "STANDBY"|| music.source == "INVALID_SOURCE"){
             sTitle ='<i class="fa fa-spotify"></i> stand by';
         } else if (music.source == "STORED_MUSIC"){
             sTitle = '<i class="fa fa-music"></i> Soundtouch ';
@@ -105,8 +109,7 @@
 		];
 	},
 	getStyles: function() {
-		return ['bose.css',
-            'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'];
+		return ['bose.css'];
 	},
     maxSize: function(sTr,len){
        if(sTr.length > len) {

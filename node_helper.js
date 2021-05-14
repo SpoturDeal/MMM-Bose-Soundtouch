@@ -59,7 +59,7 @@ module.exports = NodeHelper.create({
 	  console.log("DEBUG MMM_BOSE: start checkBoseart");
 	  if (currentART === sART) { return ; } //do nothing
 	  console.log("DEBUG MMM_BOSE: start checkBoseart, user = ", sightengineUser);
-	  if (sightengineUser === 'MYUSER') { return ; } // do nothing
+	  if (this.config.sightengineUser === 'MYUSER') { return ; } // do nothing
 	  currentART = sART ;
 	  if (sART) {
 		var found = -1 ;
@@ -72,8 +72,8 @@ module.exports = NodeHelper.create({
 		if (found == -1) {
 			var endpoint = 
 				'https://api.sightengine.com/1.0/properties.json?'+ 
-				'api_user={' + config.sightengineUser + '}&' +
-				'api_secret={' + config.sightengineSecret + '}&' +
+				'api_user={' + this.config.sightengineUser + '}&' +
+				'api_secret={' + this.config.sightengineSecret + '}&' +
 				'url=' + sART ;
 			try {
 				const res = await fetchAPI(endpoint) ;

@@ -77,7 +77,7 @@ module.exports = NodeHelper.create({
 				'api_secret={' + this.config.sightengineSecret + '}&' +
 				'url=' + sART ;
 			console.log("DEBUG ENDPOINT = ", url);
-			curl(url,function(err,result) {
+			curl.request(url,function(err,result) {
 				console.log("DEBUG MMMBOSE R=> ", result) ;
 				console.log("DEBUG MMMBOSE E=> ", err) ;
 				const pictureProperties = JSON.parse(result) ;

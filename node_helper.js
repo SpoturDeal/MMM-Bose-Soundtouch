@@ -55,7 +55,7 @@ module.exports = NodeHelper.create({
 	setTimeout(function(){ self.boseFetcher();}, updateInterval )
   },	
   
-  checkBoseart: async function(sART) {
+  checkBoseart: /* async */ function(sART) {
 	  console.log("DEBUG MMM_BOSE: start checkBoseart");
 	  if (currentART === sART) { return ; } //do nothing
 	  console.log("DEBUG MMM_BOSE: start checkBoseart, user = ", this.config.sightengineUser);
@@ -74,7 +74,7 @@ module.exports = NodeHelper.create({
 
 			sightengine.check(['properties']).set_url('https://sightengine.com/assets/img/examples/example2.jpg').then(function(result) {
   // read the output (result)
-				console.log(result) ;
+				console.log("DEBUG MMMBOSE=> ", result) ;
 				const pictureProperties = JSON.parse(result) ; ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
@@ -145,9 +145,9 @@ module.exports = NodeHelper.create({
 		this.boseFetcher() ;
 	} else if (notification === 'CHECK_BOSEART') {
 		console.log("CHECK_BOSEART Received in node_helper"); 
-		(async () => {
-		await this.checkBoseart(payload);
-		})();
+/*		(async () => {
+		await */ this.checkBoseart(payload);
+/*		})(); */
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
 	} 

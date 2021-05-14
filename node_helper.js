@@ -70,7 +70,7 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var sightengine = require('sightengine')('{' + this.config.sightengineUser + '}', '{' + this.config.sightengineSecret + '}' );
+		var sightengine = require('sightengine')("{840968781}", "{n3VhJh559mGhMcJZoXJP}" );
 
 			sightengine.check(['properties']).set_url('https://sightengine.com/assets/img/examples/example2.jpg').then(function(result) {
   // read the output (result)

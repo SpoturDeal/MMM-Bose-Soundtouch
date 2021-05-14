@@ -70,17 +70,20 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
+			var util = require('util');
+			var exec = require('child_process').exec;
 			var curl = require('curlrequest') ;
-			var url = "'"+ 
+			var command = "curl '"+ 
 				'https://api.sightengine.com/1.0/properties.json?' +
 				'api_user={' + this.config.sightengineUser + '}&' + 
 				'api_secret={' + this.config.sightengineSecret + '}&' +
 				'url=' + sART + "'" ;
-			console.log("DEBUG ENDPOINT = ", url);
-			curl.request(url,function(err,result) {
-				console.log("DEBUG MMMBOSE R=> ", result) ;
-				console.log("DEBUG MMMBOSE E=> ", err) ;
-				const pictureProperties = JSON.parse(result) ;
+			console.log("DEBUG ENDPOINT = ", command);
+			child = exec(command, function(error, stdout, stderr){
+				console.log("DEBUG MMMBOSE R=> ", stdout) ;
+				console.log("DEBUG MMMBOSE E=> ", error) ;
+				console.log("DEBUG MMMBOSE STDERR=> ",stderr) ;
+				const pictureProperties = JSON.parse(stdout) ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
 					{

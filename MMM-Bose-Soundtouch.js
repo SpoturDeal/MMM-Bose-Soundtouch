@@ -94,7 +94,7 @@
 		this.loaded = true;
 		// only update dom if content changed
 		if(this.dom !== text){
-			this.sendSocketNotification('CHECK-BOSEART', sART);
+			this.sendSocketNotification('CHECK-BOSEART', sArt);
 			this.dom = text;
 			this.updateDom(this.config.animationSpeed);
 		}

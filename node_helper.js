@@ -70,12 +70,11 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var endpoint = "'" +
+			var endpoint =
 				'https://api.sightengine.com/1.0/properties.json?'+ 
-				'api_user={' + this.config.sightengineUser + '}&' +
-				'api_secret={' + this.config.sightengineSecret + '}&' +
-				'url=' + sART +
-				"'";
+				'api_user={' + this.config.sightengineUser + '}\&' +
+				'api_secret={' + this.config.sightengineSecret + '}\&' +
+				'url=' + sART;
 				console.log("ENDPOINT = >>" + endpoint + "<<") ;
 			try {
 				const res = await fetchAPI(endpoint, { method: 'GET'}) ;
@@ -90,7 +89,7 @@ module.exports = NodeHelper.create({
 				if (artListCache.length > 50 ) { artListCache.shift() ; }
 				this.sendBoseart(artListCache.length - 1);
 			} catch (err) {
-				console.log("MMM_BOSE ERROR", error) ;
+				console.log("MMM_BOSE ERROR", err) ;
 				this.sendBoseart(-1) ;
 			}
 		} else {

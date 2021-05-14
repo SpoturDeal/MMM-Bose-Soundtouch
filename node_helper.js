@@ -75,7 +75,7 @@ module.exports = NodeHelper.create({
 			sightengine.check(['properties']).set_url('https://sightengine.com/assets/img/examples/example2.jpg').then(function(result) {
   // read the output (result)
 				console.log("DEBUG MMMBOSE=> ", result) ;
-				const pictureProperties = JSON.parse(result) ; ;
+				const pictureProperties = result ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
 					{

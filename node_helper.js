@@ -56,7 +56,7 @@ module.exports = NodeHelper.create({
   },	
   
   checkBoseart: async function(sART) {
-	  console.log("DEBUG MMM_BOSE: start checkBoseart);
+	  console.log("DEBUG MMM_BOSE: start checkBoseart");
 	  if (currentART === sART) { return ; } //do nothing
 	  console.log("DEBUG MMM_BOSE: start checkBoseart, user = ", sightengineUser);
 	  if (sightengineUser === 'MYUSER') { return ; } // do nothing

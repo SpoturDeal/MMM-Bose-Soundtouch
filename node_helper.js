@@ -74,7 +74,7 @@ module.exports = NodeHelper.create({
 			const data = { 'models': 'properties', 'url': sART, 'api_user': '{' + this.config.sightengineUser + '}', 'api_secret': '{' + this.config.sightengineSecret + '}' };
 			const querystring = this.encodeQueryData(data);
 			var url = endpoint + '1.0/check.json';
-				console.log("ENDPOINT = >>" url + '?' + querystring + "<<") ;
+				console.log("ENDPOINT = >>" + url + '?' + querystring + "<<") ;
 			try {
 				const res = await fetchAPI(url + '?' + querystring, {headers: { 'user-agent': 'SE-SDK-NODEJS1.3.1'}}) ;
 				const pictureProperties = await res.json() ;

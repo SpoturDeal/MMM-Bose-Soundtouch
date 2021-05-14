@@ -106,9 +106,9 @@ module.exports = NodeHelper.create({
 	  
   sendBoseart: function(i) {
 	 if (i == -1 ) {
-		sendSocketNotification('COLOR_BOSE_DATA', []) ;
+		this.sendSocketNotification('COLOR_BOSE_DATA', []) ;
 	 } else {
-		 sendSocketNotification('COLOR_BOSE_DATA',[artListCache[i].dominant, artListCache[i].accent]) ;
+		 this.sendSocketNotification('COLOR_BOSE_DATA',[artListCache[i].dominant, artListCache[i].accent]) ;
 	 }
   },
   

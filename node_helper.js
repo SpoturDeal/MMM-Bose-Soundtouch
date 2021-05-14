@@ -70,12 +70,12 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var endpoint = 
+			var endpoint =
 				'https://api.sightengine.com/1.0/properties.json?'+ 
 				'api_user={' + this.config.sightengineUser + '}&' +
 				'api_secret={' + this.config.sightengineSecret + '}&' +
 				'url=' + sART ;
-				console.log("ENDPOINT = ", endpoint) ;
+				console.log("ENDPOINT = >>" + endpoint + "<<") ;
 			try {
 				const res = await fetchAPI(endpoint, { method: 'GET'}) ;
 				const pictureProperties = await res.json() ;

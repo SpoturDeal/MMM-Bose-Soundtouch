@@ -77,7 +77,7 @@ module.exports = NodeHelper.create({
 				'url=' + sART ;
 				console.log("ENDPOINT = ", endpoint) ;
 			try {
-				const res = await fetchAPI(endpoint) ;
+				const res = await fetchAPI(endpoint, { method: 'GET'}) ;
 				const pictureProperties = await res.json() ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(

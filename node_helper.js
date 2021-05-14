@@ -56,6 +56,7 @@ module.exports = NodeHelper.create({
   },	
   
   checkBoseart: /* async */ function(sART) {
+	  
 	  console.log("DEBUG MMM_BOSE: start checkBoseart");
 	  if (currentART === sART) { return ; } //do nothing
 	  console.log("DEBUG MMM_BOSE: start checkBoseart, user = ", this.config.sightengineUser);
@@ -70,6 +71,7 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
+			var self = this ;
 			var util = require('util');
 			var exec = require('child_process').exec;
 			var curl = require('curlrequest') ;
@@ -92,7 +94,7 @@ module.exports = NodeHelper.create({
 					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
 					});
 				if (artListCache.length > 50 ) { artListCache.shift() ; }
-				this.sendBoseart(artListCache.length - 1);
+				self.sendBoseart(artListCache.length - 1);
 			});				
 		} else {
 			this.sendBoseart(found) ;

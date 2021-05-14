@@ -73,11 +73,11 @@ module.exports = NodeHelper.create({
 			var util = require('util');
 			var exec = require('child_process').exec;
 			var curl = require('curlrequest') ;
-			var command = "curl '"+ 
+			var command = 'curl "'+ 
 				'https://api.sightengine.com/1.0/properties.json?' +
 				'api_user={' + this.config.sightengineUser + '}&' + 
 				'api_secret={' + this.config.sightengineSecret + '}&' +
-				'url=' + sART + "'" ;
+				'url=' + sART + '"' ;
 			console.log("DEBUG ENDPOINT = ", command);
 			child = exec(command, function(error, stdout, stderr){
 				console.log("DEBUG MMMBOSE R=> ", stdout) ;

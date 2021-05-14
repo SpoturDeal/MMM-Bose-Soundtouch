@@ -89,10 +89,10 @@ module.exports = NodeHelper.create({
 				this.sendBoseart(-1) ;
 			}
 		} else {
-			sendBoseart(found) ;
+			this.sendBoseart(found) ;
 		};
 	  };
-	  sendBoseart(-1) ;
+	  this.sendBoseart(-1) ;
   },	  
 	  
   sendBoseart: function(i) {
@@ -109,9 +109,9 @@ module.exports = NodeHelper.create({
 		iplist = payload.boselist ;
 		this.boseFetcher() ;
 	} else if (notification === 'CHECK_BOSEART') {
-		checkBoseart(payload);
+		this.checkBoseart(payload);
 	} else if (notification === 'CONFIG') {
-		config = payload ;
+		this.config = payload ;
   }
   
 });

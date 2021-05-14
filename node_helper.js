@@ -7,8 +7,7 @@
  */
  
 var NodeHelper = require('node_helper');
-var sightengineAPI = require('sightengine') ;
-var getBose = require('node-fetch');
+var fetchAPI = require('node-fetch');
 var updateInterval = 10000 ;
 var iplist = [] ;
 var artListCache = [] ;
@@ -23,7 +22,7 @@ module.exports = NodeHelper.create({
   readOnebose: async function(endpoint) {
 	const regexp = /source="INVALID_SOURCE"|source="STANDBY"/ ;
 	try {
-		const res = await getBose(endpoint) ;
+		const res = await fetchAPI(endpoint) ;
 		const data = await res.text();
 		if (data.search(regexp) != -1) {
 			return {res: "off" , body: data} ;
@@ -55,7 +54,7 @@ module.exports = NodeHelper.create({
 	setTimeout(function(){ self.boseFetcher();}, updateInterval )
   },	
   
-  checkBoseart: function(sART) {
+  checkBoseart: async function(sART) {
 	  if (currentART === sART) { return ; } //do nothing
 	  if (sightengineUser === 'MYUSER') { return ; } // do nothing
 	  currentART = sART ;
@@ -68,9 +67,15 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var sightengine = sightengineAPI(config.sightengineUser,config.sightengineSecret);
-			sightengine.check(['properties']).set_url(sART).then(function(result) {
-			var pictureProperties = JSON.parse(result) ;
+			var endpoint = 
+				'https://api.sightengine.com/1.0/properties.json?'+ 
+				'api_user={' + config.sightengineUser + '}&' +
+				'api_secret={' + config.sightengineSecret + '}&' +
+				'url=' + sART ;
+			try {
+				const res = await fetchAPI(endpoint) ;
+				const pictureProperties = await res.json() ;
+				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
 					{
 					 art:sART, 
@@ -78,11 +83,11 @@ module.exports = NodeHelper.create({
 					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
 					});
 				if (artListCache.length > 50 ) { artListCache.shift() ; }
-				sendBoseart(artListCache.length - 1);
-			}).catch(function(err) {
+				this.sendBoseart(artListCache.length - 1);
+			} catch (err) {
 				console.log("MMM_BOSE ERROR", error) ;
-				sendBoseart(-1) ;
-			});
+				this.sendBoseart(-1) ;
+			}
 		} else {
 			sendBoseart(found) ;
 		};

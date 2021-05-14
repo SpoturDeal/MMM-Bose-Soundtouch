@@ -70,14 +70,13 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var endpoint =
-				'https://api.sightengine.com/1.0/properties.json?'+ 
-				'api_user={' + this.config.sightengineUser + '}\&' +
-				'api_secret={' + this.config.sightengineSecret + '}\&' +
-				'url=' + sART;
-				console.log("ENDPOINT = >>" + endpoint + "<<") ;
+			var endpoint = 'https://api.sightengine.com/' ;
+			const data = { 'models': 'properties', 'url': sART, 'api_user': '{' + this.config.sightengineUser + '}', 'api_secret': '{' + this.config.sightengineSecret + '}' };
+			const querystring = this.encodeQueryData(data);
+			var url = endpoint + '1.0/check.json';
+				console.log("ENDPOINT = >>" url + '?' + querystring + "<<") ;
 			try {
-				const res = await fetchAPI(endpoint, { method: 'GET', headers: { 'user-agent': 'SE-SDK-NODEJS1.3.1'}}) ;
+				const res = await fetchAPI(url + '?' + querystring, {headers: { 'user-agent': 'SE-SDK-NODEJS1.3.1'}}) ;
 				const pictureProperties = await res.json() ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
@@ -106,6 +105,14 @@ module.exports = NodeHelper.create({
 		 sendSocketNotification('COLOR_BOSE_DATA',[artListCache[i].dominant, artListCache[i].accent]) ;
 	 }
   },
+  
+	encodeQueryData : function(data) {
+		var ret = [];
+		for (var d in data)
+			ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+		return ret.join('&');
+	},
+
 	
   socketNotificationReceived: function(notification, payload) {
 	if (notification === 'BOSE_READ') {

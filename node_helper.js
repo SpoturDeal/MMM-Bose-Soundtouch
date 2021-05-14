@@ -70,12 +70,17 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-		var sightengine = require('sightengine')("{840968781}", "{n3VhJh559mGhMcJZoXJP}" );
-
-			sightengine.check(['properties']).set_url('https://sightengine.com/assets/img/examples/example2.jpg').then(function(result) {
-  // read the output (result)
-				console.log("DEBUG MMMBOSE=> ", result) ;
-				const pictureProperties = result ;
+			var curl = require('curlrequest') ;
+			var url = 
+				'https://api.sightengine.com/1.0/properties.json?' +
+				'api_user={' + this.config.sightengineUser + '}&' + 
+				'api_secret={' + this.config.sightengineSecret + '}&' +
+				'url=' + sART ;
+			console.log("DEBUG ENDPOINT = ", url);
+			curl(url,function(err,result) {
+				console.log("DEBUG MMMBOSE R=> ", result) ;
+				console.log("DEBUG MMMBOSE E=> ", err) ;
+				const pictureProperties = JSON.parse(result) ;
 				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
 				artListCache.push(
 					{
@@ -85,38 +90,10 @@ module.exports = NodeHelper.create({
 					});
 				if (artListCache.length > 50 ) { artListCache.shift() ; }
 				this.sendBoseart(artListCache.length - 1);
-			}).catch(function(err) {
-  // handle the error
-  				console.log("MMM_BOSE ERROR", err) ;
-				this.sendBoseart(-1) ;
-			})	
-			
-/*			var endpoint = 'https://api.sightengine.com/' ;
-			const data = { 'models': 'properties', 'url': sART, 'api_user': '{' + this.config.sightengineUser + '}', 'api_secret': '{' + this.config.sightengineSecret + '}' };
-			const querystring = this.encodeQueryData(data);
-			var url = endpoint + '1.0/check.json';
-				console.log("ENDPOINT = >>" + url + '?' + querystring + "<<") ;
-			try {
-				const res = await fetchAPI(url + '?' + querystring, {headers: { 'user-agent': 'SE-SDK-NODEJS1.3.1'}}) ;
-				const pictureProperties = await res.json() ;
-				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
-				artListCache.push(
-					{
-					 art:sART, 
-					 dominant:pictureProperties.colors.dominant.hex,
-					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
-					});
-				if (artListCache.length > 50 ) { artListCache.shift() ; }
-				this.sendBoseart(artListCache.length - 1);
-			} catch (err) {
-				console.log("MMM_BOSE ERROR", err) ;
-				this.sendBoseart(-1) ;
-			}
-	*/
+			});				
 		} else {
 			this.sendBoseart(found) ;
 		};
-
 	  } else {
 	  this.sendBoseart(-1) ;
 	  };

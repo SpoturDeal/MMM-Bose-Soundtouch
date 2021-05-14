@@ -14,6 +14,7 @@
 	},
 	start: function() {
 		Log.info('Starting module: ' + this.name);
+		this.sendSocketNotification('CONFIG', this.config) ;
 		this.sendSocketNotification('BOSE_READ', 
 			{
 			boselist: this.config.apiBase, 
@@ -21,7 +22,7 @@
 			} 
 		);
 	},
-	
+		
 	render: function(data){
 	    var json=xml2json(data);
         var music = json.nowPlaying;
@@ -93,6 +94,7 @@
 		this.loaded = true;
 		// only update dom if content changed
 		if(this.dom !== text){
+			this.sendSocketNotification('CHECK-BOSEART', sART);
 			this.dom = text;
 			this.updateDom(this.config.animationSpeed);
 		}
@@ -132,6 +134,8 @@
       if (notification === 'BOSE_DATA') {
           console.log('received BOSE_DATA');
 		  this.render(payload);
-      }
+      } else if (notification === 'COLOR_BOSE_DATA') {
+		  console.log('received colors',payload) ;
+	  }
     }
 });

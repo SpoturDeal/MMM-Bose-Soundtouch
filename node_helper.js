@@ -7,9 +7,13 @@
  */
  
 var NodeHelper = require('node_helper');
+var sightengineAPI = require('sightengine') ;
 var getBose = require('node-fetch');
 var updateInterval = 10000 ;
 var iplist = [] ;
+var artListCache = [] ;
+var currentART = null ; 
+var config = {sightengineUser: 'MYUSER', sightengineSecret: 'MYSECRET'} ;
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -50,13 +54,59 @@ module.exports = NodeHelper.create({
 	})();
 	setTimeout(function(){ self.boseFetcher();}, updateInterval )
   },	
+  
+  checkBoseart: function(sART) {
+	  if (currentART === sART) { return ; } //do nothing
+	  if (sightengineUser === 'MYUSER') { return ; } // do nothing
+	  currentART = sART ;
+	  if (sART) {
+		var found = -1 ;
+		for (var i = 0; i < artListCache.length ; i++ ) {
+			if (artListCache[i].art === sART) {
+				found = i ;
+				break ;
+			}
+		}
+		if (found == -1) {
+			var sightengine = sightengineAPI(config.sightengineUser,config.sightengineSecret);
+			sightengine.check(['properties']).set_url(sART).then(function(result) {
+			var pictureProperties = JSON.parse(result) ;
+				artListCache.push(
+					{
+					 art:sART, 
+					 dominant:pictureProperties.colors.dominant.hex,
+					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
+					});
+				if (artListCache.length > 50 ) { artListCache.shift() ; }
+				sendBoseart(artListCache.length - 1);
+			}).catch(function(err) {
+				console.log("MMM_BOSE ERROR", error) ;
+				sendBoseart(-1) ;
+			});
+		} else {
+			sendBoseart(found) ;
+		};
+	  };
+	  sendBoseart(-1) ;
+  },	  
+	  
+  sendBoseart: function(i) {
+	 if (i == -1 ) {
+		sendSocketNotification('COLOR_BOSE_DATA', []) ;
+	 } else {
+		 sendSocketNotification('COLOR_BOSE_DATA',[artListCache[i].dominant, artListCache[i].accent]) ;
+	 }
+  },
 	
   socketNotificationReceived: function(notification, payload) {
 	if (notification === 'BOSE_READ') {
 		updateInterval = payload.interval ;
 		iplist = payload.boselist ;
 		this.boseFetcher() ;
-	}
+	} else if (notification === 'CHECK_BOSEART') {
+		checkBoseart(payload);
+	} else if (notification === 'CONFIG') {
+		config = payload ;
   }
   
 });

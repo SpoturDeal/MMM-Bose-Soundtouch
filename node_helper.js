@@ -71,11 +71,11 @@ module.exports = NodeHelper.create({
 		}
 		if (found == -1) {
 			var curl = require('curlrequest') ;
-			var url = 
+			var url = "'"+ 
 				'https://api.sightengine.com/1.0/properties.json?' +
 				'api_user={' + this.config.sightengineUser + '}&' + 
 				'api_secret={' + this.config.sightengineSecret + '}&' +
-				'url=' + sART ;
+				'url=' + sART + "'" ;
 			console.log("DEBUG ENDPOINT = ", url);
 			curl.request(url,function(err,result) {
 				console.log("DEBUG MMMBOSE R=> ", result) ;

@@ -75,6 +75,7 @@ module.exports = NodeHelper.create({
 				'api_user={' + this.config.sightengineUser + '}&' +
 				'api_secret={' + this.config.sightengineSecret + '}&' +
 				'url=' + sART ;
+				console.log("ENDPOINT = ", endpoint) ;
 			try {
 				const res = await fetchAPI(endpoint) ;
 				const pictureProperties = await res.json() ;

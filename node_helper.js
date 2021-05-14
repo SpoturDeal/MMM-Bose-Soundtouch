@@ -112,7 +112,10 @@ module.exports = NodeHelper.create({
 		iplist = payload.boselist ;
 		this.boseFetcher() ;
 	} else if (notification === 'CHECK_BOSEART') {
-		this.checkBoseart(payload);
+		console.log("CHECK_BOSEART Received in node_helper"); 
+		(async () => {
+		await this.checkBoseart(payload);
+		})();
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
 	} 

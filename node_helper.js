@@ -70,7 +70,27 @@ module.exports = NodeHelper.create({
 			}
 		}
 		if (found == -1) {
-			var endpoint = 'https://api.sightengine.com/' ;
+			var sightengine = require('sightengine')('{' + this.config.sightengineUser + '}', '{' + this.config.sightengineSecret + '}' );
+
+			sightengine.check(['properties']).set_url('https://sightengine.com/assets/img/examples/example2.jpg').then(function(result) {
+  // read the output (result)
+				const pictureProperties = JSON.parse(result) ; ;
+				console.log("DEBUG MMM BOSE, JSON picture = ", JSON.stringify(pictureProperties));
+				artListCache.push(
+					{
+					 art:sART, 
+					 dominant:pictureProperties.colors.dominant.hex,
+					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
+					});
+				if (artListCache.length > 50 ) { artListCache.shift() ; }
+				this.sendBoseart(artListCache.length - 1);
+			}).catch(function(err) {
+  // handle the error
+  				console.log("MMM_BOSE ERROR", err) ;
+				this.sendBoseart(-1) ;
+			})	
+			
+/*			var endpoint = 'https://api.sightengine.com/' ;
 			const data = { 'models': 'properties', 'url': sART, 'api_user': '{' + this.config.sightengineUser + '}', 'api_secret': '{' + this.config.sightengineSecret + '}' };
 			const querystring = this.encodeQueryData(data);
 			var url = endpoint + '1.0/check.json';
@@ -91,11 +111,14 @@ module.exports = NodeHelper.create({
 				console.log("MMM_BOSE ERROR", err) ;
 				this.sendBoseart(-1) ;
 			}
+	*/
 		} else {
 			this.sendBoseart(found) ;
 		};
-	  };
+
+	  } else {
 	  this.sendBoseart(-1) ;
+	  };
   },	  
 	  
   sendBoseart: function(i) {

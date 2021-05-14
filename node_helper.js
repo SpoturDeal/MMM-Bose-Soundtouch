@@ -15,6 +15,7 @@ var currentART = null ;
 var config = {sightengineUser: 'MYUSER', sightengineSecret: 'MYSECRET'} ;
 
 module.exports = NodeHelper.create({
+	
   start: function () {
     console.log('Bose helper started ...');
   },
@@ -112,6 +113,7 @@ module.exports = NodeHelper.create({
 		this.checkBoseart(payload);
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
+	} 
   }
   
 });

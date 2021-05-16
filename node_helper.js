@@ -19,7 +19,7 @@ module.exports = NodeHelper.create({
     console.log('Bose helper started ...');
   },
   
-  config: {sightengineUser: 'MYUSER', sightengineSecret: 'MYSECRET'} ;
+  config: {sightengineUser: 'MYUSER', sightengineSecret: 'MYSECRET'},
 
   readOnebose: async function(endpoint) {
 	const regexp = /source="INVALID_SOURCE"|source="STANDBY"/ ;

@@ -91,8 +91,18 @@ module.exports = NodeHelper.create({
 				artListCache.push(
 					{
 					 art:sART, 
-					 dominant:pictureProperties.colors.dominant.hex,
-					 accent: (pictureProperties.colors.accent? pictureProperties.colors.accent[0].hex:pictureProperties.colors.other[0].hex)
+					 dominant: {r: pictureProperties.colors.dominant.r,
+								g: pictureProperties.colors.dominant.g,	
+								b: pictureProperties.colors.dominant.g
+					 }
+					 accent: (pictureProperties.colors.accent? 
+						{r: pictureProperties.colors.accent[0].r,
+						 g: pictureProperties.colors.accent[0].g,
+						 b: pictureProperties.colors.accent[0].b} : 
+						{r: pictureProperties.colors.other[0].r,
+						 g: pictureProperties.colors.other[0].g,
+						b: pictureProperties.colors.other[0].b}
+						)
 					});
 				if (artListCache.length > 50 ) { artListCache.shift() ; }
 				self.sendBoseart(artListCache.length - 1);
@@ -109,7 +119,7 @@ module.exports = NodeHelper.create({
 	 if (i == -1 ) {
 		this.sendSocketNotification('COLOR_BOSE_DATA', []) ;
 	 } else {
-		 this.sendSocketNotification('COLOR_BOSE_DATA',[artListCache[i].dominant, artListCache[i].accent]) ;
+		 this.sendSocketNotification('COLOR_BOSE_DATA',artListCache[i]) ;
 	 }
   },
   

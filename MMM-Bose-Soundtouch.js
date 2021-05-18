@@ -149,7 +149,7 @@
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 			    ]}}
-			console.log(myObject);
+			console.log("THIS IS SENT AROUND:", myObject);
 			this.sendNotification('SET_LCD_BACKLIGHTS', myObject);  
 	  }
 	  }

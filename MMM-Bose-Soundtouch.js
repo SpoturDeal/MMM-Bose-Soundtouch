@@ -150,5 +150,6 @@
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 			    ]}} )  
 	  }
-    }
+	  }
+	}
 });

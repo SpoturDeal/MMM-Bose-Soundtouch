@@ -138,17 +138,19 @@
       } else if (notification === 'COLOR_BOSE_DATA') {
 		  console.log('received colors',payload) ;
 		  if (payload == []) {
-			this.sendNotification('SET_LCD_BACKLIGHTS', {command: -1} )
+			this.sendNotification('SET_LCD_BACKLIGHTS', {command: -1} );
 		  } else {
-			this.sendNotification('SET_LCD_BACKLIGHTS', 
-			  {command: "ART", 
+			var myObject = 
+			 {command: "ART", 
 			   params:{ pixels: 
 				[{r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 				 {r: payload.accent.r, g: payload.accent.g, b: payload.accent.b},
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
 				 {r: payload.dominant.r, g: payload.dominant.g, b: payload.dominant.b},
-			    ]}} )  
+			    ]}}
+			console.log(myObject);
+			this.sendNotification('SET_LCD_BACKLIGHTS', myObject);  
 	  }
 	  }
 	}

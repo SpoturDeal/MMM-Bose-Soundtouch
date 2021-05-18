@@ -94,11 +94,12 @@ module.exports = NodeHelper.create({
 					 dominant: {r: pictureProperties.colors.dominant.r,
 								g: pictureProperties.colors.dominant.g,	
 								b: pictureProperties.colors.dominant.g
-					 }
+							   },
 					 accent: (pictureProperties.colors.accent? 
 						{r: pictureProperties.colors.accent[0].r,
 						 g: pictureProperties.colors.accent[0].g,
-						 b: pictureProperties.colors.accent[0].b} : 
+						 b: pictureProperties.colors.accent[0].b} 
+						 : 
 						{r: pictureProperties.colors.other[0].r,
 						 g: pictureProperties.colors.other[0].g,
 						b: pictureProperties.colors.other[0].b}
